@@ -2,14 +2,14 @@ import React from "react";
 import UserList from "../pages/users/user-list";
 import NewUser from "../pages/users/new-user";
 import EditUser from "../pages/users/edit-users";
-import NewProduct from "../pages/products/new-product";
-import ProductList from "../pages/products/product-list";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import EditProduct from "../pages/products/edit-product";
 import Layout from "./Layout";
-import CartList from "../pages/carts/cart-list";
-import EditCart from "../pages/carts/edit-cart";
-import NewCart from "../pages/carts/new-cart";
+import NewBooking from "../pages/bookings/new-bookings";
+import EditBooking from "../pages/bookings/edit-bookings";
+import BookingList from "../pages/bookings/bookings-list";
+import NewRoom from "../pages/rooms/new-room";
+import EditRoom from "../pages/rooms/edit-rooms";
+import RoomList from "../pages/rooms/room-list";
 
 const MainContent =() => {
     return(
@@ -21,9 +21,13 @@ const MainContent =() => {
                 <Route path="edit-user" element={<EditUser />} />
                 <Route path="user-list" element={<UserList />} />
 
-                <Route path="new-product" element={<NewProduct />} />
-                <Route path="edit-product" element={<EditProduct />} />
-                <Route path="product-list" element={<ProductList />} />
+                <Route path="new-booking" element={<NewBooking/>} />
+                <Route path="edit-booking" element={<EditBooking />} />
+                <Route path="booking-list" element={<BookingList />} />
+
+                <Route path="new-rooms" element={<NewRoom/>} />
+                <Route path="edit-rooms" element={<EditRoom />} />
+                <Route path="room-list" element={<RoomList />} />
 
                 {/* <Route path="new-cart" element={<NewCart />} />
                 <Route path="edit-cart" element={<EditCart />} />
