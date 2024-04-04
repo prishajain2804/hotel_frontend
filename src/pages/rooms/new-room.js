@@ -5,22 +5,39 @@ const NewRoom = () => {
   const [price_per_day, setPrice_Per_Day] = useState("");
   const [discounted_price, setDiscounted_Price] = useState("");
   const [bed_details, setBed_Details] = useState("");
-  const [amentites, setAmentites] = useState("");
+  const [amenities, setAmenities] = useState([]);
   const [person_capacity, setPerson_Capacity] = useState("");
   const [photos, setPhotos] = useState("");
-  const [thumnail, setThumnail] = useState("");
- 
+  const [thumbnail, setThumbnail] = useState("");
+
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
+
   useEffect(() => {
     console.log("Name =" + name);
     console.log("Price per day" + price_per_day);
     console.log("Discount =" + discounted_price);
     console.log("Bed Detail =" + bed_details);
-    console.log("Amentites =" + amentites);
+    console.log("Amentites =" + amenities);
     console.log("Person Capacity =" + person_capacity);
     console.log("Photos =" + photos);
-    console.log("Thumnail =" + thumnail);
-   
-  }, [name,price_per_day,discounted_price,bed_details,amentites,person_capacity,photos,thumnail]);
+    console.log("Thumnail =" + thumbnail);
+
+
+  }, [name,price_per_day,discounted_price,bed_details,amenities,person_capacity,photos,thumbnail]);
+
+
+  useEffect(()=>{
+      fetchAmenities();
+  },[])
+    const fetchAmenities = async () => {
+        const response = await fetch(`http://localhost:3001/amenities`);
+
+        const responseJSON = await response.json();
+        console.log("Response ", responseJSON);
+        setAmenities(responseJSON);
+
+
+    };
 
   return (
     <>
@@ -32,21 +49,21 @@ const NewRoom = () => {
           console.log("Price per day" , price_per_day);
           console.log("Discount =" , discounted_price);
           console.log("Bed Detail =" , bed_details);
-          console.log("Amentites =" , amentites);
+          console.log("Amentites =" , amenities);
           console.log("Person Capacity =" , person_capacity);
           console.log("Photos =" , photos);
-          console.log("Thumnail =" , thumnail);
+          console.log("Thumnail =" , thumbnail);
 
           const data = {
             name: name,
             price_per_day: price_per_day,
             discounted_price: discounted_price,
             bed_details: bed_details,
-            amentites: amentites,
+            amenities: selectedAmenities,
             person_capacity: person_capacity,
             photos: photos,
-            thumnail: thumnail,
-            
+            thumbnail: thumbnail,
+
           };
 
           const requestOptions = {
@@ -106,15 +123,31 @@ const NewRoom = () => {
           }}
         />
         <br />
-        <label for="amentites">Amentites</label>
-        <input
-          id="amentites"
-          name="amentites"
-          type="text"
-          onChange={(event) => {
-            setAmentites(event.target.value);
-          }}
-        />{" "}
+
+
+          <label htmlFor="amenities">Choose a car:</label>
+
+          <select name="amenities" id="amenities" multiple onChange={event=>{
+              // console.log(event.target.options);
+              var options = event.target.options;
+
+              var value = [];
+              var tempSelectedAmenities = []
+              for (var i = 0, l = options.length; i < l; i++) {
+                  console.log('option '+ i, options[i].selected);
+                  if (options[i].selected) {
+                      value.push(options[i].value);
+                      tempSelectedAmenities.push(amenities[i])
+                  }
+              }
+              setSelectedAmenities(tempSelectedAmenities);
+              console.log("selected value= ", value);
+          }}>
+              {amenities.map(amenity=>{
+                  return <option value={amenity._id}>{amenity.name}</option>
+              })}
+
+          </select>
         <br />
         <label for="person_capacity">Person Capacity</label>
         <input
@@ -134,19 +167,40 @@ const NewRoom = () => {
           onChange={(event) => {
             setPhotos(event.target.value);
           }}
-        />{" "}
+        />{" "}<br/>
+          <input type="file" name="avatar" id="file" accept=".jpef, .png, .jpg" onChange={(e)=>{
+
+                  e.preventDefault();
+                  const reader = new FileReader();
+                  const file = e.target.files[0];
+                  console.log("reader", reader)
+                  console.log("file", file)
+                  if (reader !== undefined && file !== undefined) {
+                      reader.onloadend = () => {
+                          // setFile(file)
+                          // setSize(file.size);
+                          // setName(file.name)
+                          console.log(reader.result);
+                          setPhotos(reader.result);
+                          // setImagePreview(reader.result)
+                          console.log(" I am here")
+                      }
+                      reader.readAsDataURL(file);
+                  }
+
+          }} />
         <br />
-        <label for="thumnai">Thumnail</label>
+        <label for="thumnai">Thumbnail</label>
         <input
           id="thumnail"
           name="thumnail"
           type="text"
           onChange={(event) => {
-            setThumnail(event.target.value);
+            setThumbnail(event.target.value);
           }}
         />{" "}
         <br />
-       
+
         <button type="submit">Submit</button>
       </form>
     </>
