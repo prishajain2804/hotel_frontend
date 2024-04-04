@@ -41,6 +41,8 @@ const UserList = () => {
                     <th>MOBILE</th>
                     <th>ADDRESS</th>
                     <th>EMAIL</th>
+                    <th>EDIT</th>
+                    <th>DELETE</th>
                 </tr>
                 </thead>
                 <tbody>

@@ -98,7 +98,11 @@ const EditBooking = () => {
 
           const responseJSON = await response.json();
           console.log("data entered", responseJSON);
+
+          window.location.replace("http://localhost:3000/booking-list");
         }}
+
+       
       >
         <label for="start_date">Start Date</label>
         <input

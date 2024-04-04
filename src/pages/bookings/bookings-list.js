@@ -36,6 +36,7 @@ const BookingList = () => {
                     <th>START DATE</th>
                     <th>END DATE</th>
                     <th>ROOM ID</th>
+                    <th>ROOMS</th>
                     <th>PRICE</th>
                     <th>TAX</th>
                     <th>TOTAL PRICE</th>
@@ -43,6 +44,8 @@ const BookingList = () => {
                     <th>BOOKING DATE</th>
                     <th>ADULTS</th>
                     <th>KIDS</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
