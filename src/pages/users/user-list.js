@@ -77,8 +77,8 @@ const UserList = () => {
                              const responseJSON = await response.json();
                      
                              console.log(responseJSON);
-                             //again load all data from backend
-                             loadData(); 
+
+                             loadData();
                         }}
                         >Delete</Button></td>
                        
