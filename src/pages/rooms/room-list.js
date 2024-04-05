@@ -25,7 +25,7 @@ const RoomList = () => {
             <h1>I am user List</h1>
             <Link to="/new-rooms">New Rooms</Link>
             {/* use this styles for responsive table */}
-            
+
             <Table striped bordered hover variant="dark" responsive>
             <thead>
                 <tr>
@@ -37,10 +37,10 @@ const RoomList = () => {
                     <th>AMENTIES</th>
                     <th>PERSON CAPACITY</th>
                     <th>PHOTOS</th>
-                    <th>THUMBNAIL</th> 
+                    <th>THUMNAIL</th> 
                     <th>EDIT</th>
                     <th>DELETE</th>
-                    
+
                 </tr>
                 </thead>
                 <tbody>
@@ -53,10 +53,10 @@ const RoomList = () => {
                         <td>{rooms.bed_details}</td>
                         <td>{rooms.amentites}</td>
                         <td>{rooms.person_capacity}</td>
-                        <td>{rooms.photos}</td>
+                        <td><img src={rooms.photos} width={100} height={100} /></td>
                         {/* <td>{(new Date("" + user.created)).toDateString()}</td> */}
                         {/* <td>{new Date(user.created).toDateString()}</td> */}
-                        <td>{rooms.thumbnail}</td>
+                        <td>{rooms.thumnail}</td>
                         
                         <td><Link to={`/edit-rooms?id=${rooms._id}`}>Edit User</Link></td>
 
@@ -67,23 +67,23 @@ const RoomList = () => {
                                 method: 'DELETE',
                                 headers: { 'Content-Type': 'application/json' },
                             };
-            
+
                             const response = await fetch(`http://localhost:3001/rooms/${rooms._id}`,
                              requestOptions);
 
                              const responseJSON = await response.json();
                              loadData();
-                     
+
                              console.log(responseJSON);
                             }
                             }
                         >Delete</Button></td>
-                       
+
                         </tr>
                 })}
                </tbody>
             </Table>
-           
+
         </>
     );
 };
