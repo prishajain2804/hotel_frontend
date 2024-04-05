@@ -4,13 +4,13 @@ import { useSearchParams } from "react-router-dom";
 const EditBooking = () => {
    const[photo,setPhoto] = useState("");
    const[name,setName] = useState("")
- 
+
   const searchParams = new URLSearchParams(document.location.search);
   console.log(">>>>>" + searchParams.get("id"));
   const id = searchParams.get("id");
 
   useEffect(() => {
-   
+
     console.log("Name =" + name);
     console.log("Photo =" + photo);
 
@@ -25,7 +25,7 @@ const EditBooking = () => {
     console.log("user is", responseJSON);
     setName(responseJSON.name);
     setPhoto(responseJSON.photo);
-  
+
   };
 
   return (
@@ -36,13 +36,13 @@ const EditBooking = () => {
           event.preventDefault();
           console.log("Name =", name);
           console.log("Photo", photo);
-          
+
 
 
           const data = {
             name: name,
             photo: photo,
-            
+
           };
 
           const requestOptions = {
@@ -61,8 +61,9 @@ const EditBooking = () => {
           window.location.replace("http://localhost:3000/photo-list");
         }}
 
-       
+
       >
+        {/*  Name component */}
         <label for="name">Name</label>
         <input
           id="name"
@@ -74,18 +75,46 @@ const EditBooking = () => {
           }}
         />{" "}
         <br />
-        <label for="photo">Photos</label>
-        <input
-          id="photo"
-          name="photo"
-          type="file"
-          value={photo}
-          onChange={(event) => {
-            setPhoto(event.target.value);
-          }}
-        />
+
+        {/*  photo component */}
+        <img src={photo} width={100} height={100} />
+
+          <br /><br />
+
+          Upload Photo
+          <br />
+          <label for="photo">Photos</label>
+
+          <input
+              type="file"
+              name="avatar"
+              id="file"
+              accept=".jpeg, .png, .jpg"
+              onChange={(e)=>{
+
+                  e.preventDefault();
+                  const reader = new FileReader();
+                  const file = e.target.files[0];
+                  console.log("reader", reader)
+                  console.log("file", file)
+                  if (reader !== undefined && file !== undefined) {
+                      reader.onloadend = () => {
+                          // setFile(file)
+                          // setSize(file.size);
+                          // setName(file.name)
+                          console.log(reader.result);
+                          setPhoto(reader.result);
+                          // setImagePreview(reader.result)
+
+                          console.log("I am here")
+                      }
+                      reader.readAsDataURL(file);
+                  }
+
+              }} />
         <br />
-       
+          <br />
+
         <button type="submit">Submit</button>
       </form>
     </>
