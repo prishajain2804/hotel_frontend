@@ -8,7 +8,7 @@ const NewRoom = () => {
   const [bed_details, setBed_Details] = useState("");
   const [amenities, setAmenities] = useState([]);
   const [person_capacity, setPerson_Capacity] = useState("");
-  const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState("");
   const [thumbnail, setThumbnail] = useState("");
 
   useEffect(() => {
@@ -20,8 +20,29 @@ const NewRoom = () => {
     console.log("Person Capacity =" + person_capacity);
     console.log("Photos =" + photos);
     console.log("Thumbnail =" + thumbnail);
+    
+  }, [
+    name,
+    price_per_day,
+    discounted_price,
+    bed_details,
+    amenities,
+    person_capacity,
+    photos,
+    thumbnail,
+  ]);
 
-  }, [name,price_per_day,discounted_price,bed_details,amenities,person_capacity,photos,thumbnail]);
+  useEffect(()=>{
+    fetchAmenities();
+  },[])
+  const fetchAmenities = async () => {
+    const response = await fetch(`http://localhost:3001/amenities`);
+
+    const responseJSON = await response.json();
+
+    console.log("Response>>", responseJSON);
+    setAmenities(responseJSON);
+  };
 
   return (
     <>
@@ -46,8 +67,7 @@ const NewRoom = () => {
             amenities: amenities,
             person_capacity: person_capacity,
             photos: photos,
-            thumbnail:thumbnail,
-
+            thumbnail: thumbnail,
           };
 
           const requestOptions = {
@@ -139,56 +159,16 @@ const NewRoom = () => {
           }}
         />{" "}
         <br />
-        {/*<label for="photos">Photos</label>*/}
-        {/*<input*/}
-        {/*  id="photos"*/}
-        {/*  name="photos"*/}
-        {/*  type="text"*/}
-        {/*  onChange={(event) => {*/}
-        {/*    setPhotos(event.target.value);*/}
-        {/*  }}*/}
-
-          {photos.map(photo=>{
-              return <img src={photo.image_data} width={100} height = {100}/>
-          })}
-
-          <label htmlFor="photo">Photos</label>
-
-          <input
-              type="file"
-              name="avatar"
-              id="file"
-              accept=".jpeg, .png, .jpg"
-              onChange={(e) => {
-
-                  e.preventDefault();
-                  const reader = new FileReader();
-                  const file = e.target.files[0];
-                  console.log("reader", reader)
-                  console.log("file", file)
-                  if (reader !== undefined && file !== undefined) {
-                      reader.onloadend = () => {
-                          // setFile(file)
-                          // setSize(file.size);
-                          // setName(file.name)
-                          console.log(reader.result);
-
-                          setPhotos(prevState => {
-                              return [...prevState, {image_data:reader.result}]
-                          });
-                          // setPhoto(reader.result);
-                          // setImagePreview(reader.result)
-
-                          console.log("I am here")
-                      }
-                      reader.readAsDataURL(file);
-                  }
-
-              }}
-
-          />
-        {" "}<br/>
-
+        <label for="photos">Photos</label>
+        <input
+          id="photos"
+          name="photos"
+          type="text"
+          onChange={(event) => {
+            setPhotos(event.target.value);
+          }}
+        />{" "}
+        <br />
         <label for="thumnai">Thumbnail</label>
         <input
           id="thumbnail"
