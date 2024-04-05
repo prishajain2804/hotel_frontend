@@ -26,7 +26,7 @@ const UserList = () => {
             <h1>I am user List</h1>
             <Link to="/new-user">New User</Link>
             {/* use this styles for responsive table */}
-            
+
             <Table striped bordered hover variant="dark" responsive>
             <thead>
                 <tr>
@@ -37,7 +37,7 @@ const UserList = () => {
                     <th>PASSWORD</th>
                     <th>AGE</th>
                     <th>IDENTITY_PROOF_TYPE</th>
-                    <th>IDENTITY_PROOF_NUMBER</th> 
+                    <th>IDENTITY_PROOF_NUMBER</th>
                     <th>MOBILE</th>
                     <th>ADDRESS</th>
                     <th>EMAIL</th>
@@ -70,23 +70,23 @@ const UserList = () => {
                                 method: 'DELETE',
                                 headers: { 'Content-Type': 'application/json' },
                             };
-            
+
                             const response = await fetch(`http://localhost:3001/users/${user._id}`,
                              requestOptions);
 
                              const responseJSON = await response.json();
-                     
+
                              console.log(responseJSON);
 
                              loadData();
                         }}
                         >Delete</Button></td>
-                       
+
                         </tr>
                 })}
                </tbody>
             </Table>
-           
+
         </>
     );
 };

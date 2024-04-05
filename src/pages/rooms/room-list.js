@@ -37,7 +37,7 @@ const RoomList = () => {
                     <th>AMENTIES</th>
                     <th>PERSON CAPACITY</th>
                     <th>PHOTOS</th>
-                    <th>THUMBNAIL</th> 
+                    <th>THUMBNAIL</th>
                     <th>EDIT</th>
                     <th>DELETE</th>
 
@@ -53,11 +53,13 @@ const RoomList = () => {
                         <td>{rooms.bed_details}</td>
                         <td>{rooms.amentites}</td>
                         <td>{rooms.person_capacity}</td>
-                        <td>{rooms.photos}</td>
+                        <td>{rooms.photos.map(photo=>{
+                            return <img src={photo.image_data} width={100} height = {100}/>
+                        })}</td>
                         {/* <td>{(new Date("" + user.created)).toDateString()}</td> */}
                         {/* <td>{new Date(user.created).toDateString()}</td> */}
                         <td>{rooms.thumbnail}</td>
-                        
+
                         <td><Link to={`/edit-rooms?id=${rooms._id}`}>Edit User</Link></td>
 
                         <td><Button variant="primary"

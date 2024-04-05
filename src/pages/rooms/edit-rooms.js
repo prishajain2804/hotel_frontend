@@ -8,7 +8,7 @@ const EditRoom = () => {
     const [bed_details, setBed_Details] = useState("");
     const [amentites, setAmentites] = useState("");
     const [person_capacity, setPerson_Capacity] = useState("");
-    const [photos, setPhotos] = useState("");
+    const [photos, setPhotos] = useState([]);
     const [thumbnail, setThumbnail] = useState("");
 
   const searchParams = new URLSearchParams(document.location.search);
@@ -88,7 +88,7 @@ const EditRoom = () => {
           window.location.replace("http://localhost:3000/room-list");
         }}
 
-       
+
       >
         <label for="name">Name</label>
         <input
@@ -156,16 +156,45 @@ const EditRoom = () => {
           }}
         />
         <br />
-        <label for="photos">Photos</label>
-        <input
-          id="photos"
-          name="photos"
-          type="text"
-          value={photos}
-          onChange={(event) => {
-            setPhotos(event.target.value);
-          }}
-        />
+          {photos.map(photo=>{
+              return <img src={photo.image_data} width={100} height = {100}/>
+          })}
+
+          <label htmlFor="photo">Photos</label>
+
+          <input
+              type="file"
+              name="avatar"
+              id="file"
+              accept=".jpeg, .png, .jpg"
+              onChange={(e) => {
+
+                  e.preventDefault();
+                  const reader = new FileReader();
+                  const file = e.target.files[0];
+                  console.log("reader", reader)
+                  console.log("file", file)
+                  if (reader !== undefined && file !== undefined) {
+                      reader.onloadend = () => {
+                          // setFile(file)
+                          // setSize(file.size);
+                          // setName(file.name)
+                          console.log(reader.result);
+
+                          setPhotos(prevState => {
+                              return [...prevState, {image_data:reader.result}]
+                          });
+                          // setPhoto(reader.result);
+                          // setImagePreview(reader.result)
+
+                          console.log("I am here")
+                      }
+                      reader.readAsDataURL(file);
+                  }
+
+              }}
+
+          />
         <br />
         <label for="thumbnail">Thumbnail</label>
         <input
@@ -178,7 +207,7 @@ const EditRoom = () => {
           }}
         />
         <br />
-        
+
         <button type="submit">Submit</button>
       </form>
     </>
