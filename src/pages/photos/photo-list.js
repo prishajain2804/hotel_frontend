@@ -4,26 +4,26 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
 
-const RoomList = () => {
-    const [rooms, setRooms]= useState([]);
+const PhotoList = () => {
+    const [photos, setPhotos]= useState([]);
 
     useEffect(() => {
         loadData();
     }, []);
 
     const loadData = async () => {
-        const response = await fetch('http://localhost:3001/rooms');
+        const response = await fetch('http://localhost:3001/photos');
 
         const responseJSON = await response.json();
 
         console.log(responseJSON);
-        setRooms(responseJSON);
+        setPhotos(responseJSON);
     };
 
     return (
         <>
-            <h1>I am user List</h1>
-            <Link to="/new-rooms">New Rooms</Link>
+            <h1>I am Photos List</h1>
+            <Link to="/adding-photo">New Photos</Link>
             {/* use this styles for responsive table */}
             
             <Table striped bordered hover variant="dark" responsive>
@@ -31,44 +31,30 @@ const RoomList = () => {
                 <tr>
                     <th>ID</th>
                     <th>NAME</th>
-                    <th>PRICE PER DAY</th>
-                    <th>DISCOUNTED PRICE</th>
-                    <th>BED DETAIL</th>
-                    <th>AMENTIES</th>
-                    <th>PERSON CAPACITY</th>
-                    <th>PHOTOS</th>
-                    <th>THUMBNAIL</th> 
+                    <th>IMAGE</th>
                     <th>EDIT</th>
                     <th>DELETE</th>
+                   
                     
                 </tr>
                 </thead>
                 <tbody>
-                {rooms.map((rooms)=>{
+                {photos.map((photo)=>{
                     return <tr>
-                        <td>{rooms._id}</td>
-                        <td>{rooms.name}</td>
-                        <td>{rooms.price_per_day}</td>
-                        <td>{rooms.discounted_price}</td>
-                        <td>{rooms.bed_details}</td>
-                        <td>{rooms.amentites}</td>
-                        <td>{rooms.person_capacity}</td>
-                        <td>{rooms.photos}</td>
-                        {/* <td>{(new Date("" + user.created)).toDateString()}</td> */}
-                        {/* <td>{new Date(user.created).toDateString()}</td> */}
-                        <td>{rooms.thumbnail}</td>
-                        
-                        <td><Link to={`/edit-rooms?id=${rooms._id}`}>Edit User</Link></td>
+                        <td>{photo._id}</td>
+                        <td>{photo.name}</td>
+                        <td><img src={photo.photo} width={100} height={100}/></td>
+                       <td><Link to={`/edit-photo?id=${photo._id}`}>Edit</Link></td>
 
                         <td><Button variant="primary"
                         onClick={async () => {
-                            console.log(rooms._id);
+                            console.log(photo._id);
                             const requestOptions = {
                                 method: 'DELETE',
                                 headers: { 'Content-Type': 'application/json' },
                             };
             
-                            const response = await fetch(`http://localhost:3001/rooms/${rooms._id}`,
+                            const response = await fetch(`http://localhost:3001/photos/${photo._id}`,
                              requestOptions);
 
                              const responseJSON = await response.json();
@@ -88,4 +74,4 @@ const RoomList = () => {
     );
 };
 
-export default RoomList;
+export default PhotoList;

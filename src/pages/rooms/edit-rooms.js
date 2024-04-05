@@ -9,7 +9,7 @@ const EditRoom = () => {
     const [amentites, setAmentites] = useState("");
     const [person_capacity, setPerson_Capacity] = useState("");
     const [photos, setPhotos] = useState("");
-    const [thumnail, setThumnail] = useState("");
+    const [thumbnail, setThumbnail] = useState("");
 
   const searchParams = new URLSearchParams(document.location.search);
   console.log(">>>>>" + searchParams.get("id"));
@@ -23,7 +23,7 @@ const EditRoom = () => {
     console.log("Amentites =" + amentites);
     console.log("Person Capacity =" + person_capacity);
     console.log("Photos =" + photos);
-    console.log("Thumnail =" + thumnail);
+    console.log("Thumbnail =" + thumbnail);
 
     fetchUser();
   }, []);
@@ -41,7 +41,7 @@ const EditRoom = () => {
     setAmentites(responseJSON.amentites);
     setPerson_Capacity(responseJSON.person_capacity);
     setPhotos(responseJSON.photos);
-    setThumnail(responseJSON.thumnail);
+    setThumbnail(responseJSON.thumbnail);
   };
 
   return (
@@ -57,7 +57,7 @@ const EditRoom = () => {
           console.log("Amentites =" , amentites);
           console.log("Person Capacity =" , person_capacity);
           console.log("Photos =" , photos);
-          console.log("Thumnail =" , thumnail);
+          console.log("Thumbnail =" , thumbnail);
 
 
 
@@ -69,7 +69,7 @@ const EditRoom = () => {
             amentites: amentites,
             person_capacity: person_capacity,
             photos: photos,
-            thumnail: thumnail,
+            thumbnail: thumbnail,
           };
 
           const requestOptions = {
@@ -167,14 +167,14 @@ const EditRoom = () => {
           }}
         />
         <br />
-        <label for="thumnail">Thumnail</label>
+        <label for="thumbnail">Thumbnail</label>
         <input
-          id="thumnail"
-          name="thumnail"
+          id="thumbnail"
+          name="thumbnail"
           type="text"
-          value={thumnail}
+          value={thumbnail}
           onChange={(event) => {
-            setThumnail(event.target.value);
+            setThumbnail(event.target.value);
           }}
         />
         <br />

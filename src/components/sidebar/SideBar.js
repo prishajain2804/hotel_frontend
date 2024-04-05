@@ -14,7 +14,7 @@ import {
 import Header from "../Header";
 import MainContent from "../MainContent";
 
-const MENU_ITEM = ["Users", "Rooms", "Bookings"];
+const MENU_ITEM = ["Users", "Rooms", "Bookings","Photos"];
 
 const SideBar =() => {
     const [closeOtherItems, setCloseOtherItems] = useState([true, true, true]);
@@ -72,6 +72,10 @@ const SideBar =() => {
 
             <NavLink exact to="/room-list" activeClassName="activeClicked">
               <CDBSidebarMenuItem icon="chart-line">Rooms</CDBSidebarMenuItem>
+            </NavLink>
+
+            <NavLink exact to="/photo-list" activeClassName="activeClicked">
+              <CDBSidebarMenuItem icon="chart-line">Photos</CDBSidebarMenuItem>
             </NavLink>
 
             <NavLink exact to="/hero404" target="_blank" activeClassName="activeClicked">

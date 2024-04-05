@@ -92,7 +92,7 @@ const EditUser = () => {
 
           const responseJSON = await response.json();
           console.log("data entered", responseJSON);
-          window.location.replace("http://localhost:3000/booking-list");
+          window.location.replace("http://localhost:3000/user-list");
         }}
       >
         <label for="first_name">First Name</label>

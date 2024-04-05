@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const NewRoom = () => {
   const [name, setName] = useState("");
@@ -8,7 +9,7 @@ const NewRoom = () => {
   const [amentites, setAmentites] = useState("");
   const [person_capacity, setPerson_Capacity] = useState("");
   const [photos, setPhotos] = useState("");
-  const [thumnail, setThumnail] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
  
   useEffect(() => {
     console.log("Name =" + name);
@@ -18,9 +19,9 @@ const NewRoom = () => {
     console.log("Amentites =" + amentites);
     console.log("Person Capacity =" + person_capacity);
     console.log("Photos =" + photos);
-    console.log("Thumnail =" + thumnail);
+    console.log("Thumbnail =" + thumbnail);
    
-  }, [name,price_per_day,discounted_price,bed_details,amentites,person_capacity,photos,thumnail]);
+  }, [name,price_per_day,discounted_price,bed_details,amentites,person_capacity,photos,thumbnail]);
 
   return (
     <>
@@ -35,7 +36,7 @@ const NewRoom = () => {
           console.log("Amentites =" , amentites);
           console.log("Person Capacity =" , person_capacity);
           console.log("Photos =" , photos);
-          console.log("Thumnail =" , thumnail);
+          console.log("Thumbnail =" , thumbnail);
 
           const data = {
             name: name,
@@ -45,7 +46,7 @@ const NewRoom = () => {
             amentites: amentites,
             person_capacity: person_capacity,
             photos: photos,
-            thumnail: thumnail,
+            thumbnail: thumbnail,
             
           };
 
@@ -114,8 +115,7 @@ const NewRoom = () => {
           onChange={(event) => {
             setAmentites(event.target.value);
           }}
-        />{" "}
-        <br />
+        /><br/>{" "}
         <label for="person_capacity">Person Capacity</label>
         <input
           id="person_capacity"
@@ -136,13 +136,13 @@ const NewRoom = () => {
           }}
         />{" "}
         <br />
-        <label for="thumnai">Thumnail</label>
+        <label for="thumnai">Thumbnail</label>
         <input
-          id="thumnail"
-          name="thumnail"
+          id="thumbnail"
+          name="thumbnail"
           type="text"
           onChange={(event) => {
-            setThumnail(event.target.value);
+            setThumbnail(event.target.value);
           }}
         />{" "}
         <br />
