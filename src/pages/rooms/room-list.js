@@ -54,8 +54,6 @@ const RoomList = () => {
                         <td>{rooms.amentites}</td>
                         <td>{rooms.person_capacity}</td>
                         <td>{rooms.photos}</td>
-                        {/* <td>{(new Date("" + user.created)).toDateString()}</td> */}
-                        {/* <td>{new Date(user.created).toDateString()}</td> */}
                         <td>{rooms.thumbnail}</td>
                         
                         <td><Link to={`/edit-rooms?id=${rooms._id}`}>Edit User</Link></td>

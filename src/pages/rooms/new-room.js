@@ -10,7 +10,7 @@ const NewRoom = () => {
   const [person_capacity, setPerson_Capacity] = useState("");
   const [photos, setPhotos] = useState("");
   const [thumbnail, setThumbnail] = useState("");
- 
+
   useEffect(() => {
     console.log("Name =" + name);
     console.log("Price per day" + price_per_day);
@@ -20,8 +20,29 @@ const NewRoom = () => {
     console.log("Person Capacity =" + person_capacity);
     console.log("Photos =" + photos);
     console.log("Thumbnail =" + thumbnail);
-   
-  }, [name,price_per_day,discounted_price,bed_details,amenities,person_capacity,photos,thumbnail]);
+    
+  }, [
+    name,
+    price_per_day,
+    discounted_price,
+    bed_details,
+    amenities,
+    person_capacity,
+    photos,
+    thumbnail,
+  ]);
+
+  useEffect(()=>{
+    fetchAmenities();
+  },[])
+  const fetchAmenities = async () => {
+    const response = await fetch(`http://localhost:3001/amenities`);
+
+    const responseJSON = await response.json();
+
+    console.log("Response>>", responseJSON);
+    setAmenities(responseJSON);
+  };
 
   return (
     <>
@@ -29,14 +50,14 @@ const NewRoom = () => {
       <form
         onSubmit={async (event) => {
           event.preventDefault();
-          console.log("Name =" ,name);
-          console.log("Price per day" , price_per_day);
-          console.log("Discount =" , discounted_price);
-          console.log("Bed Detail =" , bed_details);
-          console.log("Amentites =" , amenities);
-          console.log("Person Capacity =" , person_capacity);
-          console.log("Photos =" , photos);
-          console.log("Thumbnail =" , thumbnail);
+          console.log("Name =", name);
+          console.log("Price per day", price_per_day);
+          console.log("Discount =", discounted_price);
+          console.log("Bed Detail =", bed_details);
+          console.log("Amentites =", amenities);
+          console.log("Person Capacity =", person_capacity);
+          console.log("Photos =", photos);
+          console.log("Thumbnail =", thumbnail);
 
           const data = {
             name: name,
@@ -46,8 +67,7 @@ const NewRoom = () => {
             amenities: amenities,
             person_capacity: person_capacity,
             photos: photos,
-            thumbnail:thumbnail,
-            
+            thumbnail: thumbnail,
           };
 
           const requestOptions = {
@@ -107,15 +127,28 @@ const NewRoom = () => {
           }}
         />
         <br />
-        <label for="amentites">Amentites</label>
-        <input
-          id="amentites"
-          name="amentites"
-          type="text"
-          onChange={(event) => {
-            setAmenities(event.target.value);
-          }}
-        /><br/>{" "}
+        <label for="amenities">Amenities:</label>
+        <select name="amenities" id="amenities" multiple onChange={(event)=>{
+          
+          var options = event.target.options;
+         
+          var value = [];
+          var tempSelectedAmenities =[];
+          for (var i=0, l = options.length; i< l ; i++){
+            console.log("option"+ i ,options[i].selected)
+            if(options[i].selected){
+              value.push(options[i].value)
+            
+            }
+
+          }
+          console.log("selected value=", value )
+        }}>
+          {amenities.map((amenity) => {
+            return <option value={amenity._id}>{amenity.name}</option>;
+          })}
+        </select>
+        <br></br>
         <label for="person_capacity">Person Capacity</label>
         <input
           id="person_capacity"
@@ -134,8 +167,8 @@ const NewRoom = () => {
           onChange={(event) => {
             setPhotos(event.target.value);
           }}
-        />{" "}<br/>
-         
+        />{" "}
+        <br />
         <label for="thumnai">Thumbnail</label>
         <input
           id="thumbnail"
@@ -146,7 +179,6 @@ const NewRoom = () => {
           }}
         />{" "}
         <br />
-
         <button type="submit">Submit</button>
       </form>
     </>
