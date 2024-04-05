@@ -10,7 +10,7 @@ const NewRoom = () => {
   const [person_capacity, setPerson_Capacity] = useState("");
   const [photos, setPhotos] = useState("");
   const [thumbnail, setThumbnail] = useState("");
-
+  const [SelectedAmenities,setSelectedAminites] = useState([]);
   useEffect(() => {
     console.log("Name =" + name);
     console.log("Price per day" + price_per_day);
@@ -64,7 +64,7 @@ const NewRoom = () => {
             price_per_day: price_per_day,
             discounted_price: discounted_price,
             bed_details: bed_details,
-            amenities: amenities,
+            amenities: SelectedAmenities,
             person_capacity: person_capacity,
             photos: photos,
             thumbnail: thumbnail,
@@ -137,11 +137,13 @@ const NewRoom = () => {
           for (var i=0, l = options.length; i< l ; i++){
             console.log("option"+ i ,options[i].selected)
             if(options[i].selected){
-              value.push(options[i].value)
+              value.push(options[i].value);
+              tempSelectedAmenities.push(amenities[i]);
             
             }
 
           }
+          setSelectedAminites()
           console.log("selected value=", value )
         }}>
           {amenities.map((amenity) => {
