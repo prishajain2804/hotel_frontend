@@ -8,7 +8,7 @@ const NewRoom = () => {
   const [bed_details, setBed_Details] = useState("");
   const [amenities, setAmenities] = useState([]);
   const [person_capacity, setPerson_Capacity] = useState("");
-  const [photos, setPhotos] = useState("");
+  const [photos, setPhotos] = useState([]);
   const [thumbnail, setThumbnail] = useState("");
   const [SelectedAmenities,setSelectedAminites] = useState([]);
   useEffect(() => {
@@ -143,7 +143,7 @@ const NewRoom = () => {
             }
 
           }
-          setSelectedAminites()
+          setSelectedAminites(tempSelectedAmenities)
           console.log("selected value=", value )
         }}>
           {amenities.map((amenity) => {
@@ -163,13 +163,34 @@ const NewRoom = () => {
         <br />
         <label for="photos">Photos</label>
         <input
-          id="photos"
-          name="photos"
-          type="text"
-          onChange={(event) => {
-            setPhotos(event.target.value);
+          type="file"
+          name="avatar"
+          id="file"
+          accept=".jpeg, .png, .jpg"
+          onChange={(e)=>{
+            
+                e.preventDefault();
+                const reader = new FileReader();
+                const file = e.target.files[0];
+                console.log("reader", reader)
+                console.log("file", file)
+                if (reader !== undefined && file !== undefined) {
+                  reader.onloadend = () => {
+                    // setFile(file)
+                    // setSize(file.size);
+                    // setName(file.name)
+                    console.log(reader.result);
+                    setPhotos(reader.result);
+                    // setImagePreview(reader.result)
+
+                    console.log("I am here")
+                  }
+                  reader.readAsDataURL(file);
+                }
+              
           }}
-        />{" "}
+          
+        />
         <br />
         <label for="thumnai">Thumbnail</label>
         <input
